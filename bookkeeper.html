@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bookkeeper</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bookkeeper.css') }}"/>
+</head>
+<body>
+<div class="heading-div">
+    <h1>Bookkeeper</h1>
+    <p>Distributed book management system</p>
+</div>
+<h2>Actions panel</h2>
+<div class="input-output-div">
+    <div class="inputs-div">
+        <div class="input-div">
+            <label for="isbn">ISBN</label>
+            <input type="text" id="isbn">
+        </div>
+        <div class="input-div">
+            <label for="title">Book-Title</label>
+            <input type="text" id="title">
+        </div>
+        <div class="input-div">
+            <label for="author">Book-Author</label>
+            <input type="text" id="author">
+        </div>
+        <div class="input-div">
+            <label for="yearOfPublication">Year-Of-Publication</label>
+            <input type="number" id="yearOfPublication">
+        </div>
+        <div class="input-div">
+            <label for="publisher">Publisher</label>
+            <input type="text" id="publisher">
+        </div>
+        <div class="input-div">
+            <label for="borrowerId">Borrower ID</label>
+            <input type="number" id="borrowerId">
+        </div>
+    </div>
+    <div class="actions-div">
+        <input type="submit" id="add" value="Add new book">
+        <input type="submit" id="remove" value="Delete book">
+        <input type="submit" id="info" value="Get book info">
+        <input type="submit" id="borrow" value="Borrow book">
+        <input type="submit" id="return" value="Return book">
+    </div>
+    <div class="output-div">
+        <p id="result">(action results will appear here)</p>
+    </div>
+</div>
+<div class="list-books-action">
+    <h2>All books</h2>
+    <input type="submit" id="list" value="List books">
+</div>
+<div class="books-list-div">
+    <p id="books">(list of books will appear here)</p>
+</div>
+<script src="{{ url_for('static', filename='action_scripts.js') }}"></script>
+</body>
+</html>

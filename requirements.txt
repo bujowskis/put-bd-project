@@ -1,2 +1,7 @@
 pandas==2.2.2
 numpy==1.26.4
+
+Flask==2.2.2
+aiohttp==3.9.5
+cassandra_driver==3.29.1
+werkzeug==2.2.2

@@ -1,0 +1,84 @@
+version: '3'
+
+services:
+  c1:
+    image: cassandra:latest
+    container_name: c1
+    environment:
+      - CASSANDRA_CLUSTER_NAME=cassandra-cluster
+      - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
+      - MAX_HEAP_SIZE=1G
+      - HEAP_NEWSIZE=200M
+    ports:
+      - 9042:9042
+    networks:
+      - cassandra-net
+    healthcheck:
+      test: ["CMD", "cqlsh", "-e", "describe keyspaces" ]
+      interval: 5s
+      timeout: 5s
+      retries: 60
+  c2:
+    image: cassandra:latest
+    container_name: c2
+    environment:
+      - CASSANDRA_SEEDS=c1
+      - CASSANDRA_CLUSTER_NAME=cassandra-cluster
+      - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
+      - MAX_HEAP_SIZE=1G
+      - HEAP_NEWSIZE=200M
+    depends_on:
+      c1:
+        condition: service_healthy  # needed to ensure prerequisite is up
+    networks:
+      - cassandra-net
+    healthcheck:
+      test: ["CMD", "cqlsh", "-e", "describe keyspaces" ]
+      interval: 5s
+      timeout: 5s
+      retries: 60
+  c3:
+    image: cassandra:latest
+    container_name: c3
+    environment:
+      - CASSANDRA_SEEDS=c1
+      - CASSANDRA_CLUSTER_NAME=cassandra-cluster
+      - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
+      - MAX_HEAP_SIZE=1G
+      - HEAP_NEWSIZE=200M
+    depends_on:
+      c2:
+        condition: service_healthy  # needed to ensure prerequisite is up
+    networks:
+      - cassandra-net
+    healthcheck:
+      test: ["CMD", "cqlsh", "-e", "describe keyspaces" ]
+      interval: 5s
+      timeout: 5s
+      retries: 60
+  flask_server:
+    image: my_flask_server
+    mem_limit: 1g
+    depends_on:
+      c3:
+        condition: service_healthy  # needed to ensure prerequisite is up
+    ports:
+      - "8089-8091:8089"
+    deploy:
+      replicas: 3
+    networks:
+      - cassandra-net
+  nginx:
+    image: nginx:latest
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - flask_server
+    networks:
+      - cassandra-net
+
+networks:
+  cassandra-net:
+    driver: bridge

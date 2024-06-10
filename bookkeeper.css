@@ -1,0 +1,100 @@
+body {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    /* avoiding responsiveness issues */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 8px;
+}
+
+.heading-div {
+    text-align: center;
+}
+
+.input-output-div {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    padding-bottom: 16px;
+}
+
+.inputs-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 8px;
+    flex-grow: 1;
+    width: 100%;
+    max-width: 400px;
+}
+
+.input-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.input-div label {
+    min-width: 160px;
+}
+
+.input-div input {
+    width: 100%;
+}
+
+.actions-div {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-between;
+    gap: 8px;
+    max-width: 120px;
+}
+
+.output-div {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    width: 100%; /* fit as much content width-wise as possible */
+}
+
+#result {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.list-books-action {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    align-content: center;
+}
+
+#list {
+    height: 21px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.books-list-div {
+    display: flex;
+    height: 360px;
+    overflow: auto;
+}
+
+input[type="submit"] {
+    cursor: pointer;
+}
+
+#add {
+    background-color: darkgreen;
+    color: white;
+}
+
+#remove {
+    background-color: firebrick;
+    color: white;
+}
+
+#books {
+    margin-top: 0;
+}
